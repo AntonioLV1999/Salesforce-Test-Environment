@@ -55,7 +55,6 @@ export default class SalesforceExercise extends LightningElement {
     selectDepartureAirport(event) {
         var clickDeparture = event.target.getAttribute("id");
         var departure = clickDeparture.substring(0, 3);
-        console.log('Departure IATA: ' + departure);
         this.departureIata = departure;
         this.departureAirports = [];
     }
@@ -63,27 +62,25 @@ export default class SalesforceExercise extends LightningElement {
     selectArrivalAirport(event) {
         var clickArrival = event.target.getAttribute("id");
         var arrival = clickArrival.substring(0, 3);
-        console.log('Arrival IATA: '+arrival);
         this.arrivalIata = arrival;
         this.arrivalAirports = [];
     }
 
     handleSave(){
-        console.log('departures: '+this.departureIata);
         if (this.departureIata && this.arrivalIata) {
             saveFlight({ departureIata: this.departureIata, arrivalIata: this.arrivalIata })
                 .then(result => {
                     this.flight = result;
-                    console.log('muy bien: ' + this.flight);
                     this.error = undefined;
                 })
                 .catch(error => {
                     this.error = error.message;
-                    console.log('puto pringao '+this.error);
                     this.flight = undefined;
                 });
         } else {
             this.error = 'Please select both departure and arrival airports.';
         }
     }
+
+
 }
