@@ -1,0 +1,31 @@
+<template>
+    <lightning-card title="Create Flight" icon-name="custom:custom20">
+        <div class="slds-p-around_medium">
+            <lightning-input label="Departure Airport IATA Code" onchange={handleDepartureChange}></lightning-input>
+            <ul if:true={departureAirports}>
+                <template for:each={departureAirports} for:item="airport">
+                    <li id={airport.IATA_Code__c} key={airport.Id} onclick={selectDepartureAirport}>{airport.Name} -
+                        {airport.IATA_Code__c}</li>
+                </template>
+            </ul>
+            <lightning-input label="Arrival Airport IATA Code" onchange={handleArrivalChange}></lightning-input>
+            <ul if:true={arrivalAirports}>
+                <template for:each={arrivalAirports} for:item="airport">
+                    <li id={airport.IATA_Code__c} key={airport.Id} onclick={selectArrivalAirport}>{airport.Name} -
+                        {airport.IATA_Code__c}</li>
+                </template>
+            </ul>
+            <lightning-button label="Save Flight" onclick={handleSave}></lightning-button>
+        </div>
+        <template if:true={flight}>
+            <div class="slds-p-around_medium">
+                <p>Flight created succesfully with the Id {flight.Id}</p>
+            </div>
+        </template>
+        <template if:true={error}>
+            <div class="slds-p-around_medium">
+                <p>{error}</p>
+            </div>
+        </template>
+    </lightning-card>
+</template>
